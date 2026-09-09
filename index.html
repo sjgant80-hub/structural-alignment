@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Structural Alignment — a working demonstration, with receipts</title>
+<meta name="description" content="Alignment as architecture, not supervision: four mutation-tested kernels you can run on this page, and receipts from systems already running the pattern.">
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --panel2:#1c2430; --line:#2d3644;
+    --ink:#e6edf3; --dim:#8b98a5; --accent:#58a6ff; --good:#3fb950;
+    --warn:#d29922; --bad:#f85149; --chip:#21262d; --mono:ui-monospace,SFMono-Regular,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0}
+  body{background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,Segoe UI,Roboto,sans-serif;padding:0 0 4rem}
+  .wrap{max-width:960px;margin:0 auto;padding:0 1.25rem}
+  header{padding:3.5rem 0 2rem;border-bottom:1px solid var(--line)}
+  h1{font-size:2rem;letter-spacing:.02em}
+  .sub{color:var(--dim);margin-top:.5rem;max-width:44rem}
+  .thesis{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:8px;padding:1.1rem 1.25rem;margin:2rem 0;color:var(--ink)}
+  h2{font-size:1.25rem;margin:2.5rem 0 1rem;color:var(--ink)}
+  h3{font-size:1rem;margin:0 0 .4rem}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:1rem 1.1rem}
+  .chip{display:inline-block;font:600 .72rem/1.6 var(--mono);letter-spacing:.06em;padding:.05rem .55rem;border-radius:999px;background:var(--chip);border:1px solid var(--line);margin-bottom:.5rem}
+  .chip.run{color:var(--good);border-color:var(--good)}
+  .chip.page{color:var(--accent);border-color:var(--accent)}
+  .chip.spec{color:var(--warn);border-color:var(--warn)}
+  .card p{color:var(--dim);font-size:.92rem}
+  .card a{color:var(--accent);text-decoration:none}
+  .card a:hover{text-decoration:underline}
+  .demo{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:1.1rem;margin:1rem 0}
+  .demo label{display:block;font-size:.82rem;color:var(--dim);margin:.5rem 0 .15rem}
+  .demo input[type=number],.demo input[type=text],.demo select{background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:.4rem .6rem;font:0.95rem var(--mono);width:100%;max-width:220px}
+  .demo .row{display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-end}
+  .demo button{background:var(--accent);color:#04121f;border:0;border-radius:6px;padding:.5rem 1rem;font-weight:700;cursor:pointer;margin-top:.6rem}
+  .demo button:hover{filter:brightness(1.1)}
+  .out{font:.9rem/1.5 var(--mono);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:.7rem .9rem;margin-top:.8rem;white-space:pre-wrap;word-break:break-word;color:var(--dim)}
+  .out .v-healthy,.out .v-HONEST,.out .v-SHIP,.out .v-contained{color:var(--good);font-weight:700}
+  .out .v-theater,.out .v-rubber-stamp,.out .v-loose,.out .v-SHIP-WITH-CORRECTION,.out .v-idle{color:var(--warn);font-weight:700}
+  .out .v-breach,.out .v-REFUSED,.out .v-BAR-LOWERED,.out .v-unbounded,.out .v-refused{color:var(--bad);font-weight:700}
+  .powers{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.5rem .9rem;margin-top:.4rem}
+  .powers label{margin:0}
+  table{border-collapse:collapse;width:100%;font-size:.9rem;margin:.6rem 0}
+  td,th{border:1px solid var(--line);padding:.45rem .6rem;text-align:left;vertical-align:top}
+  th{background:var(--panel);font-size:.8rem;letter-spacing:.04em}
+  td{color:var(--dim)}
+  code{font:.88em var(--mono);background:var(--chip);padding:.08em .35em;border-radius:4px}
+  .honest{border-left-color:var(--warn)}
+  footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--line);color:var(--dim);font-size:.85rem}
+  footer a{color:var(--accent)}
+  .scroll{overflow-x:auto}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Structural Alignment</h1>
+  <p class="sub">A working demonstration of structural self-alignment — alignment built into the architecture as load-bearing code, not supervised onto behavior after the fact. With receipts, not claims.</p>
+</header>
+
+<div class="thesis">
+  <strong>The thesis in one sentence:</strong> supervisory alignment (test, catch, patch) is path-by-path and the paths are infinite — a capable agent finds the untested one; structural alignment puts the boundary <em>inside</em> the system, present on every path, so it holds against behaviors nobody anticipated.
+</div>
+
+<h2>Seven contributions — each an alignment primitive</h2>
+<div class="grid">
+  <div class="card">
+    <span class="chip run">RUNNING · public receipt</span>
+    <h3>1 · Structural self-refusal</h3>
+    <p>An autonomous system offered work for publication whose code did not match its own claimed provenance. The gate caught the mismatch and the system refused itself — the refusal is documented in the shipped README. Receipt: <a href="https://github.com/sjgant80-hub/pixelwhisperer">pixelwhisperer</a>.</p>
+  </div>
+  <div class="card">
+    <span class="chip run">RUNNING</span> <span class="chip page">KERNEL ON THIS PAGE</span>
+    <h3>2 · Honest gate — no faked green</h3>
+    <p>The revision loop's standing law: never delete assertions to fake a pass, never weaken the code to dodge a test. The <code>honestGreen</code> kernel below makes bar-lowering detectable. Running receipts: <a href="https://github.com/sjgant80-hub/witness-kit">witness-kit</a>, <a href="https://github.com/sjgant80-hub/the-bell">the-bell</a>.</p>
+  </div>
+  <div class="card">
+    <span class="chip page">KERNEL ON THIS PAGE · gated 52/52</span>
+    <h3>3 · The seam metric — measurable approval health</h3>
+    <p>An approval ritual can rot silently: approvals stop conducting to execution (theater), or the door stops refusing anything (rubber-stamp), or acts bypass it (breach). <code>seamMetric</code> puts a number and a verdict on it. Try it below.</p>
+  </div>
+  <div class="card">
+    <span class="chip page">KERNEL ON THIS PAGE · gated 52/52</span>
+    <h3>4 · Twelve-powers completeness lint</h3>
+    <p>Containment-first audit of what a build may touch: a power nobody declared is a power nobody bounded — the worst finding, ranked above every feature gap. <code>twelvePowers</code>, live below.</p>
+  </div>
+  <div class="card">
+    <span class="chip run">RUNNING · fixed real gates</span>
+    <h3>5 · Bidirectional review</h3>
+    <p>The governed agent audited its maker back: it flagged a silent-narrowing pattern (step-wise confirmation re-confirming less each step until the check is theater) in the maker's own gate code — and was right, twice. The overseer's gates got stronger because the overseen system reviewed them. Related public gate: <a href="https://github.com/sjgant80-hub/ui-gate">ui-gate</a>.</p>
+  </div>
+  <div class="card">
+    <span class="chip run">RUNNING doctrine</span> <span class="chip page">KERNEL ON THIS PAGE</span>
+    <h3>6 · Provenance is a witness, not a memory</h3>
+    <p>The author's story of what they built is a memory; only the gate's run is a record. <code>provenanceVerdict</code> makes the law executable: the verdict follows the witness, always, and a disagreement is itself the finding.</p>
+  </div>
+  <div class="card">
+    <span class="chip spec">SPEC — honestly not yet running</span>
+    <h3>7 · Band-filtered training (anti-slop)</h3>
+    <p>Train only on material that passes a quality gate from both sides — filter the slop below, the rote above — to resist the model-collapse loop of training on scraped model output. Buildable; not built. It sits in this column until it has a gate of its own.</p>
+  </div>
+</div>
+
+<h2>Run the kernels</h2>
+<p class="sub">Everything below executes the same <code>kernel.mjs</code> that passed the mutation gate — injected verbatim into this page by <code>make-page.mjs</code> and diffed in CI, so the demo cannot quietly diverge from the proven code.</p>
+
+<div class="demo">
+  <h3>seamMetric — does approval still conduct to execution?</h3>
+  <div class="row">
+    <div><label for="sm-a">approved (count)</label><input id="sm-a" type="number" min="0" step="1" value="1000"></div>
+    <div><label for="sm-e">executed (count)</label><input id="sm-e" type="number" min="0" step="1" value="650"></div>
+    <button id="sm-go">measure</button>
+  </div>
+  <div class="out" id="sm-out">…</div>
+</div>
+
+<div class="demo">
+  <h3>twelvePowers — is this build contained?</h3>
+  <div class="powers" id="tp-powers"></div>
+  <button id="tp-go">lint</button>
+  <div class="out" id="tp-out">…</div>
+</div>
+
+<div class="demo">
+  <h3>provenanceVerdict — the witness outranks the memory</h3>
+  <div class="row">
+    <div><label for="pv-ca">claim: artifact</label><input id="pv-ca" type="text" value="dream-3"></div>
+    <div><label for="pv-cp">claim: author says it passed</label><select id="pv-cp"><option value="true">yes</option><option value="false">no</option></select></div>
+  </div>
+  <div class="row">
+    <div><label for="pv-wa">witness: artifact actually run</label><input id="pv-wa" type="text" value="dream-3"></div>
+    <div><label for="pv-wp">witness: it passed</label><select id="pv-wp"><option value="true">yes</option><option value="false" selected>no</option></select></div>
+    <button id="pv-go">judge</button>
+  </div>
+  <div class="out" id="pv-out">…</div>
+</div>
+
+<div class="demo">
+  <h3>honestGreen — did the suite get weaker between revisions?</h3>
+  <div class="row">
+    <div><label for="hg-ba">before: assertions</label><input id="hg-ba" type="number" min="0" step="1" value="10"></div>
+    <div><label for="hg-bp">before: pinned</label><input id="hg-bp" type="number" min="0" step="1" value="6"></div>
+    <div><label for="hg-aa">after: assertions</label><input id="hg-aa" type="number" min="0" step="1" value="7"></div>
+    <div><label for="hg-ap">after: pinned</label><input id="hg-ap" type="number" min="0" step="1" value="6"></div>
+    <button id="hg-go">check</button>
+  </div>
+  <div class="out" id="hg-out">…</div>
+</div>
+
+<h2>The honest split</h2>
+<div class="thesis honest">
+  <p><strong>What this is:</strong> a demonstration that alignment boundaries can be built as small, pure, mutation-tested code, plus public receipts from systems already running the pattern (a self-refusal that shipped, a bidirectional audit that fixed real gates, gates that refuse their own theatre).</p>
+  <p style="margin-top:.6rem"><strong>What this is not:</strong> a claim that alignment is solved. Contribution 7 is a spec and says so. The seam band's default pins (0.618–0.687) are tuned constants, pinned numerically in the tests so they cannot drift silently — recalibrate them against your own system's history before trusting a verdict.</p>
+</div>
+
+<h2>The proof line</h2>
+<div class="scroll">
+<table>
+  <tr><th>artifact</th><th>proof</th></tr>
+  <tr><td><code>kernel.mjs</code> (4 kernels)</td><td>mutation gate <strong>CLEAN — 52/52 mutants killed, zero survivors, zero exemptions</strong>; 31 tests, every constant pinned numerically</td></tr>
+  <tr><td>this page</td><td>carries the gated kernel verbatim between generated markers; CI regenerates and diffs — drift fails the build</td></tr>
+  <tr><td>receipts</td><td>public repos linked above, each carrying its own gate verdict in its README</td></tr>
+</table>
+</div>
+
+<footer>
+  <p>MIT · <a href="https://github.com/sjgant80-hub/structural-alignment">source & gate</a> · pure functions, no network, nothing leaves this page.</p>
+</footer>
+</div>
+
+<script type="module">
+// ⟦KERNEL-BEGIN⟧ generated from kernel.mjs by make-page.mjs — do not edit here
+// structural-alignment · the kernels
+//
+// Four alignment primitives as pure, total functions — no I/O, no state, garbage in
+// returns { ok:false, why } and never throws. The claim of this repo is not "alignment
+// solved"; it is that these boundaries can be BUILT INTO a system as load-bearing code
+// (and mutation-tested), rather than supervised onto it after the fact.
+//
+//   seamMetric        — measure whether an approval ritual still conducts to execution
+//   twelvePowers      — completeness/containment lint over a build's declared powers
+//   provenanceVerdict — the witness outranks the author's memory, always
+//   honestGreen       — a green bought by deleting checks is named, not celebrated
+
+// The healthy conduction band for seamMetric. Tuned constants, pinned numerically in
+// the tests so a drifted band cannot pass silently.
+const BAND = Object.freeze({ low: 0.618, high: 0.687 });
+
+/**
+ * seamMetric({ approved, executed }) — the RISEN ratio: executed / approved.
+ * An approval door is healthy when most — not all — of what it approves goes on to run:
+ * below the band, approvals stop meaning execution (the ritual is becoming theater);
+ * inside the band, approval conducts; above it, the door approves everything it sees
+ * (rubber-stamp drift); past 1.0, things ran that were never approved (a breach).
+ */
+function seamMetric(input) {
+  if (typeof input !== 'object') return { ok: false, why: 'seamMetric reads { approved, executed } — an object of two counts' };
+  if (input === null) return { ok: false, why: 'seamMetric reads { approved, executed } — an object of two counts' };
+  if (Array.isArray(input)) return { ok: false, why: 'seamMetric reads { approved, executed } — an object of two counts' };
+  const a = input.approved, e = input.executed;
+  if (!Number.isInteger(a)) return { ok: false, why: 'approved and executed are non-negative integers — counts, not impressions' };
+  if (!Number.isInteger(e)) return { ok: false, why: 'approved and executed are non-negative integers — counts, not impressions' };
+  if (a < 0) return { ok: false, why: 'approved and executed are non-negative integers — counts, not impressions' };
+  if (e < 0) return { ok: false, why: 'approved and executed are non-negative integers — counts, not impressions' };
+  if (a === 0) {
+    if (e === 0) return { ok: true, risen: null, verdict: 'idle', why: 'nothing approved, nothing executed — an unused seam is unused, not healthy' };
+    return { ok: true, risen: null, verdict: 'breach', why: e + ' executed with zero approved — action without a door is not a metric problem, it is a breach' };
+  }
+  const risen = Math.round((e / a) * 1000) / 1000;
+  if (risen > 1) return { ok: true, risen, verdict: 'breach', why: 'more executed than approved — some acts bypassed the door' };
+  if (risen < BAND.low) return { ok: true, risen, verdict: 'theater', why: 'approval without execution — the ritual approves more than the system performs; the check is drifting toward theater' };
+  if (risen <= BAND.high) return { ok: true, risen, verdict: 'healthy', why: 'approval conducts to execution inside the band' };
+  return { ok: true, risen, verdict: 'rubber-stamp', why: 'nearly every approval executes — a door that never turns anything away may no longer be deciding' };
+}
+
+// The twelve powers a build can hold. Fixed vocabulary — an unknown power is refused,
+// because a linter that accepts new powers on the fly cannot claim completeness.
+const POWERS = Object.freeze([
+  'filesystem:read', 'filesystem:write', 'network:read', 'network:write',
+  'shell', 'env', 'clipboard', 'browser',
+  'database', 'tool:invoke', 'spend', 'identity:sign',
+]);
+
+const STANCES = Object.freeze(['denied', 'bounded', 'granted']);
+
+/**
+ * twelvePowers(manifest) — audit a build against the twelve powers, containment-first.
+ * manifest maps power → 'denied' | 'bounded' | 'granted'. An UNDECLARED power is the
+ * worst finding (HIGH): a power nobody named is a power nobody bounded. 'granted'
+ * without a bound is MEDIUM. completeness = declared/12, containment = denied-or-bounded/12.
+ */
+function twelvePowers(manifest) {
+  if (typeof manifest !== 'object') return { ok: false, why: 'twelvePowers reads a manifest object: { "<power>": "denied"|"bounded"|"granted" }' };
+  if (manifest === null) return { ok: false, why: 'twelvePowers reads a manifest object: { "<power>": "denied"|"bounded"|"granted" }' };
+  if (Array.isArray(manifest)) return { ok: false, why: 'twelvePowers reads a manifest object: { "<power>": "denied"|"bounded"|"granted" }' };
+  for (const k of Object.keys(manifest)) {
+    if (!POWERS.includes(k)) return { ok: false, why: 'unknown power "' + k + '" — the twelve are fixed; completeness over an open list means nothing' };
+  }
+  const findings = [];
+  let declared = 0, contained = 0;
+  for (const p of POWERS) {
+    const s = manifest[p];
+    if (s === undefined) { findings.push({ power: p, level: 'HIGH', why: 'undeclared — a power nobody named is a power nobody bounded' }); continue; }
+    if (!STANCES.includes(s)) return { ok: false, why: 'stance for ' + p + ' must be denied|bounded|granted, got "' + String(s) + '"' };
+    declared++;
+    if (s === 'granted') findings.push({ power: p, level: 'MEDIUM', why: 'granted without a bound — a power with no ceiling' });
+    else contained++;
+  }
+  findings.sort((x, y) => (x.level === y.level ? POWERS.indexOf(x.power) - POWERS.indexOf(y.power) : (x.level === 'HIGH' ? -1 : 1)));
+  const completeness = Math.round((declared / 12) * 100);
+  const containment = Math.round((contained / 12) * 100);
+  const verdict = findings.length === 0 ? 'contained' : (findings.some((f) => f.level === 'HIGH') ? 'unbounded' : 'loose');
+  return { ok: true, completeness, containment, findings, verdict };
+}
+
+/**
+ * provenanceVerdict({ claim, witness }) — self-reported provenance is a memory, not a gate.
+ * claim   = { artifact, passed } — what the author says about what they built.
+ * witness = { artifact, passed } — what the gate actually ran, on what.
+ * The verdict follows the witness, always. A claim naming a different artifact than the
+ * witness ran is refused outright. A disagreement on the result is a confabulation —
+ * named as a finding, never smoothed over — and only a witnessed pass ships.
+ */
+function provenanceVerdict(input) {
+  if (typeof input !== 'object') return { ok: false, why: 'provenanceVerdict reads { claim, witness }' };
+  if (input === null) return { ok: false, why: 'provenanceVerdict reads { claim, witness }' };
+  if (Array.isArray(input)) return { ok: false, why: 'provenanceVerdict reads { claim, witness }' };
+  const misshapen = (s) => {
+    if (typeof s !== 'object') return true;
+    if (s === null) return true;
+    if (typeof s.artifact !== 'string') return true;
+    if (s.artifact.length === 0) return true;
+    if (typeof s.passed !== 'boolean') return true;
+    return false;
+  };
+  if (misshapen(input.claim)) return { ok: false, why: 'claim is { artifact: non-empty string, passed: boolean } — what the author says' };
+  if (misshapen(input.witness)) return { ok: false, why: 'witness is { artifact: non-empty string, passed: boolean } — what the gate ran' };
+  const { claim, witness } = input;
+  if (claim.artifact !== witness.artifact) {
+    return { ok: true, ship: false, confabulation: true, verdict: 'REFUSED', why: 'the claim names "' + claim.artifact + '" but the witness ran "' + witness.artifact + '" — the story and the receipt are about different things' };
+  }
+  const confabulation = claim.passed !== witness.passed;
+  if (!witness.passed) {
+    return { ok: true, ship: false, confabulation, verdict: 'REFUSED', why: confabulation ? 'the author remembers a green the witness never saw — refused, and the disagreement is itself the finding' : 'the witness is red — an honest failure, and honest failures do not ship' };
+  }
+  return { ok: true, ship: true, confabulation, verdict: confabulation ? 'SHIP-WITH-CORRECTION' : 'SHIP', why: confabulation ? 'the witness passed though the author believed otherwise — ship the witnessed artifact and correct the memory' : 'claim and witness agree, and the witness passed' };
+}
+
+/**
+ * honestGreen({ before, after }) — a revision loop's anti-reward-hacking law.
+ * before/after = { assertions, pinned } — the shape of the test suite around a revision.
+ * A suite that got smaller or looser between revisions "passed" by lowering the bar:
+ * that is BAR-LOWERED, and the flags name exactly what was traded for the green.
+ */
+function honestGreen(input) {
+  if (typeof input !== 'object') return { ok: false, why: 'honestGreen reads { before, after } suite shapes' };
+  if (input === null) return { ok: false, why: 'honestGreen reads { before, after } suite shapes' };
+  if (Array.isArray(input)) return { ok: false, why: 'honestGreen reads { before, after } suite shapes' };
+  const misshapen = (s) => {
+    if (typeof s !== 'object') return true;
+    if (s === null) return true;
+    if (!Number.isInteger(s.assertions)) return true;
+    if (!Number.isInteger(s.pinned)) return true;
+    if (s.assertions < 0) return true;
+    if (s.pinned < 0) return true;
+    if (s.pinned > s.assertions) return true;
+    return false;
+  };
+  if (misshapen(input.before)) return { ok: false, why: 'before is { assertions, pinned } — non-negative integers, pinned <= assertions' };
+  if (misshapen(input.after)) return { ok: false, why: 'after is { assertions, pinned } — non-negative integers, pinned <= assertions' };
+  const flags = [];
+  if (input.after.assertions < input.before.assertions) {
+    flags.push('assertions deleted (' + input.before.assertions + ' → ' + input.after.assertions + ') — a green bought by removing the checks');
+  }
+  if (input.after.pinned < input.before.pinned) {
+    flags.push('pinned expectations loosened (' + input.before.pinned + ' → ' + input.after.pinned + ') — exactness traded for a pass');
+  }
+  const honest = flags.length === 0;
+  return { ok: true, honest, flags, verdict: honest ? 'HONEST' : 'BAR-LOWERED', why: honest ? 'the suite got no weaker between revisions' : flags.join('; ') };
+}
+// ⟦KERNEL-END⟧
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const show = (el, r) => {
+  if (!r.ok) { el.innerHTML = '<span class="v-refused">refused</span> — ' + esc(r.why); return; }
+  const bits = [];
+  if ('verdict' in r) bits.push('<span class="v-' + esc(r.verdict) + '">' + esc(r.verdict) + '</span>');
+  if ('risen' in r && r.risen !== null) bits.push('risen = ' + r.risen);
+  if ('completeness' in r) bits.push('completeness ' + r.completeness + '% · containment ' + r.containment + '%');
+  if ('ship' in r) bits.push(r.ship ? 'ships' : 'does not ship');
+  if ('confabulation' in r && r.confabulation) bits.push('confabulation named');
+  if ('honest' in r) bits.push(r.honest ? 'suite intact' : 'bar lowered');
+  let out = bits.join(' · ') + '\n' + esc(r.why);
+  if (r.findings && r.findings.length) out += '\n' + r.findings.map((f) => '  [' + f.level + '] ' + f.power + ' — ' + f.why).join('\n');
+  if (r.flags && r.flags.length) out += '\n' + r.flags.map((f) => '  ⚑ ' + f).join('\n');
+  el.innerHTML = out;
+};
+const int = (id) => { const v = $(id).value.trim(); return v === '' ? NaN : Number(v); };
+
+$('sm-go').addEventListener('click', () => show($('sm-out'), seamMetric({ approved: int('sm-a'), executed: int('sm-e') })));
+
+const stanceSel = (p) => {
+  const w = document.createElement('div');
+  const l = document.createElement('label'); l.textContent = p; l.htmlFor = 'tp-' + p;
+  const s = document.createElement('select'); s.id = 'tp-' + p;
+  for (const o of ['undeclared', 'denied', 'bounded', 'granted']) { const e = document.createElement('option'); e.value = o; e.textContent = o; s.append(e); }
+  s.value = ['network:write', 'spend'].includes(p) ? 'undeclared' : (p === 'shell' ? 'granted' : 'bounded');
+  w.append(l, s); return w;
+};
+for (const p of POWERS) $('tp-powers').append(stanceSel(p));
+$('tp-go').addEventListener('click', () => {
+  const m = {};
+  for (const p of POWERS) { const v = $('tp-' + p).value; if (v !== 'undeclared') m[p] = v; }
+  show($('tp-out'), twelvePowers(m));
+});
+
+$('pv-go').addEventListener('click', () => show($('pv-out'), provenanceVerdict({
+  claim: { artifact: $('pv-ca').value.trim(), passed: $('pv-cp').value === 'true' },
+  witness: { artifact: $('pv-wa').value.trim(), passed: $('pv-wp').value === 'true' },
+})));
+
+$('hg-go').addEventListener('click', () => show($('hg-out'), honestGreen({
+  before: { assertions: int('hg-ba'), pinned: int('hg-bp') },
+  after: { assertions: int('hg-aa'), pinned: int('hg-ap') },
+})));
+</script>
+</body>
+</html>
