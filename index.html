@@ -332,7 +332,7 @@ const show = (el, r) => {
   if ('ship' in r) bits.push(r.ship ? 'ships' : 'does not ship');
   if ('confabulation' in r && r.confabulation) bits.push('confabulation named');
   if ('honest' in r) bits.push(r.honest ? 'suite intact' : 'bar lowered');
-  let out = bits.join(' · ') + '\n' + esc(r.why);
+  let out = bits.join(' · ') + (r.why === undefined ? '' : '\n' + esc(r.why));
   if (r.findings && r.findings.length) out += '\n' + r.findings.map((f) => '  [' + f.level + '] ' + f.power + ' — ' + f.why).join('\n');
   if (r.flags && r.flags.length) out += '\n' + r.flags.map((f) => '  ⚑ ' + f).join('\n');
   el.innerHTML = out;
