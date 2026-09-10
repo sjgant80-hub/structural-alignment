@@ -4,10 +4,11 @@
 // a page whose logic drifted from the gated kernel fails the build.
 import { readFileSync, writeFileSync } from 'node:fs';
 
-const kernel = readFileSync(new URL('./kernel.mjs', import.meta.url), 'utf8')
+const strip = (f) => readFileSync(new URL('./' + f, import.meta.url), 'utf8')
   .replace(/^export /gm, '')
   .replace(/\r\n/g, '\n')
   .trimEnd();
+const kernel = strip('kernel.mjs') + '\n\n// ===== band.mjs — the gate that moved contribution 7 to RUNNING =====\n' + strip('band.mjs');
 
 const page = readFileSync(new URL('./index.html', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 const BEGIN = '// ⟦KERNEL-BEGIN⟧ generated from kernel.mjs by make-page.mjs — do not edit here';

@@ -25,7 +25,7 @@ public receipts from systems already exhibiting the behavior.
 | 4 | **Twelve-powers lint** — containment-first completeness audit; an undeclared power outranks every feature gap | `twelvePowers` kernel here, gated |
 | 5 | **Bidirectional review** — the governed agent audited its maker's own gate code, found a real silent-narrowing vulnerability, twice; the overseer's gates got stronger | running · related public gate: [ui-gate](https://github.com/sjgant80-hub/ui-gate) |
 | 6 | **Provenance is a witness, not a memory** — the verdict follows the gate's run, never the author's story; disagreement is itself the finding | running doctrine + `provenanceVerdict` kernel here |
-| 7 | **Band-filtered training (anti-slop)** — train only on material gated from both sides | **spec — honestly not yet running** |
+| 7 | **Band-filtered training (anti-slop)** — sorts slop/living/rote, resists collapse, cannot cheat its own booking | **running — earned via three gates of its own** (`band.mjs`, 64/65 +1 argued) |
 
 ## The proof line
 
@@ -37,7 +37,16 @@ public receipts from systems already exhibiting the behavior.
   node tools/witness.mjs mutate kernel.mjs --timeout 30000 --cap 160 --test node --test kernel.test.mjs
   ```
 
-- `index.html` — carries `kernel.mjs` verbatim between generated markers (`make-page.mjs`).
+- `band.mjs` — contribution 7's own three gates: the SORTING gate (a labelled set sorts 6/6;
+  one swapped label kills it), the COLLAPSE-RESISTANCE gate (a deterministic degenerate-feedback
+  simulation: unfiltered decays 0.6923 → 0.1059 over six rounds, the filtered lineage refuses five
+  slop generations and holds at 0.36 — delta 0.2541, trajectories pinned exactly), and the
+  HONEST-BOOKING gate (the band is booked per run and cannot silently widen — the anti-narrowing
+  law turned on the filter itself). Mutation gate **CLEAN: 64/65, one reviewed-equivalent argued**.
+  The scorer is an explicit lexical-redundancy proxy; a semantic scorer plugs into the same port —
+  the gates are scorer-agnostic. Contribution 7 shipped as SPEC and moved columns only when all
+  three passed: **the column change is itself the demonstration of the witness-not-memory law.**
+- `index.html` — carries `kernel.mjs` and `band.mjs` verbatim between generated markers (`make-page.mjs`).
   CI regenerates the page and diffs it: **the demo cannot quietly diverge from the gated code.**
 - The gate refuses its own theatre: if the per-mutant timeout is not comfortably above the
   suite's own runtime, it refuses to run rather than let every mutant time out as "killed."
@@ -48,8 +57,9 @@ public receipts from systems already exhibiting the behavior.
 mutation-tested code, plus public receipts of the pattern running (a self-refusal that
 shipped, a bidirectional audit that fixed real gates).
 
-**This is not:** a claim that alignment is solved. Contribution 7 is a spec and is labeled
-as one. The seam band's default pins (0.618–0.687) are tuned constants — pinned numerically
+**This is not:** a claim that alignment is solved. Contribution 7 shipped labeled SPEC and
+moved to RUNNING only when its own three gates passed — the scorer is a lexical proxy and the
+collapse run a labelled simulation, said plainly on the page. The seam band's default pins (0.618–0.687) are tuned constants — pinned numerically
 in the tests so they cannot drift silently; recalibrate against your own system's history
 before trusting a verdict.
 

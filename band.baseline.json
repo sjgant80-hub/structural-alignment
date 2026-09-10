@@ -1,0 +1,7 @@
+[
+  {
+    "mutation": "< → <=",
+    "snippet": "const decayed = unfiltered.final < unfiltered.trajectory[0];",
+    "reason": "Reviewed-equivalent. degrade() appends eight copies of a phrase drawn from the text itself, so the word count strictly rises while the distinct count cannot rise - the score strictly falls on every accepted round. An unfiltered lineage of one or more rounds therefore always has final strictly below its first sample; final === first is unreachable, and < versus <= decide identically on every reachable input. No test can kill it; equivalent, not test-theatre."
+  }
+]

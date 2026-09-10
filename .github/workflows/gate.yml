@@ -9,11 +9,15 @@ jobs:
         with:
           node-version: 22
       - name: tests
-        run: node --test kernel.test.mjs
-      - name: mutation gate — must be CLEAN (no survivors, no exemptions)
+        run: node --test kernel.test.mjs band.test.mjs
+      - name: mutation gate — kernel.mjs must be CLEAN
         run: |
           node tools/witness.mjs mutate kernel.mjs --timeout 30000 --cap 160 --test node --test kernel.test.mjs | tee gate.out || true
           node -e "const b=require('fs').readFileSync('gate.out','utf8');const j=JSON.parse(b.slice(b.indexOf('{'),b.lastIndexOf('}')+1));if(j.clean!==true){console.error('GATE NOT CLEAN');process.exit(1)}console.log('CLEAN '+j.killed+'/'+j.total)"
+      - name: mutation gate — band.mjs must be CLEAN (survivors killed or argued)
+        run: |
+          node tools/witness.mjs mutate band.mjs --timeout 45000 --cap 260 --baseline band.baseline.json --test node --test band.test.mjs | tee band-gate.out || true
+          node -e "const b=require('fs').readFileSync('band-gate.out','utf8');const j=JSON.parse(b.slice(b.indexOf('{'),b.lastIndexOf('}')+1));if(j.clean!==true){console.error('BAND GATE NOT CLEAN');process.exit(1)}console.log('CLEAN '+j.killed+'/'+j.total+' (+'+(j.ignored||[]).length+' argued)')"
       - name: page fixpoint — the live logic IS the gated kernel
         run: |
           node make-page.mjs
